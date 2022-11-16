@@ -1,3 +1,28 @@
 {{page-title "Home"}}
-<h1>This is home page</h1>
-{{@model.sidebarItems}}
+<div class="container p-5">
+    <h1>This is home page</h1>
+    <BsAccordion as |acc|>
+        {{#each @model.sidebarItems as |item index|}}
+        <acc.item @value={{index}}  @title={{item.name}}>
+            <p>{{item.description}}</p>
+        </acc.item>
+        {{/each}}
+    </BsAccordion>
+    <br>
+    <div class="card">
+        <div class="card-body">
+            <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewItem}} as |form|>
+                <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
+                    {{ this.msg }}
+                </BsAlert>
+                <form.element @controlType="text" @label="Name" @property="name" as |el|>
+                    <el.control placeholder="Name" required />
+                </form.element>
+                <form.element @controlType="textarea" @label="Description" @property="description" as |el|>
+                    <el.control placeholder="Description" required />
+                </form.element>
+                <form.submitButton>Submit</form.submitButton>
+            </BsForm>
+        </div>
+    </div>
+</div>

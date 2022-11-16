@@ -11,7 +11,7 @@ export default class MenuItemAdapter extends RESTAdapter {
   async findAll(store, type, sinceToken, snapshotRecordArray) {
     let { modelName } = type;
     const path = this.pathForType(modelName);
-    
+
     let res = await fetch(`${this.host}/${path}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },

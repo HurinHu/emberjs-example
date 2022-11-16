@@ -1,7 +1,364 @@
+body {
+    margin: 0;
+    font-family: 'Open Sans',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+}
+
+@for $i from 1 to 51 {
+    .font-#{$i} {
+        font-size: calc($i/10)+rem !important;
+    }
+}
+
+@for $i from 1 to 10 {
+    .font-weight-#{$i} {
+        font-weight: ($i*100) !important;
+    }
+}
+
+@each $i in [normal,
+italic,
+oblique] {
+    .font-style-#{$i} {
+        font-style: $i !important;
+    }
+}
+
+@each $i in [lining-nums,
+oldstyle-nums,
+proportional-nums,
+tabular-nums,
+diagonal-fractions,
+stacked-fractions] {
+    .font-variant-numeric-#{$i} {
+        font-variant-numeric: $i !important;
+    }
+}
+
+@for $i from 1 to 101 {
+    .padding-top-#{$i} {
+        padding-top: calc($i/10)+rem !important;
+    }
+    .padding-bottom-#{$i} {
+        padding-bottom: calc($i/10)+rem !important;
+    }
+    .padding-left-#{$i} {
+        padding-left: calc($i/10)+rem !important;
+    }
+    .padding-right-#{$i} {
+        padding-right: calc($i/10)+rem !important;
+    }
+    .padding-#{$i} {
+        padding: calc($i/10)+rem !important;
+    }
+    .margin-top-#{$i} {
+        margin-top: calc($i/10)+rem !important;
+    }
+    .margin-bottom-#{$i} {
+        margin-bottom: calc($i/10)+rem !important;
+    }
+    .margin-left-#{$i} {
+        margin-left: calc($i/10)+rem !important;
+    }
+    .margin-right-#{$i} {
+        margin-right: calc($i/10)+rem !important;
+    }
+    .margin-#{$i} {
+        margin: calc($i/10)+rem !important;
+    }
+    .height-#{$i} {
+        height: ($i*10)+rem !important;
+    }
+    .height-min-#{$i} {
+        height: 100%;
+        min-height: ($i*10)+rem !important;
+    }
+}
+
+@each $i in [-9999,
+-1001,
+-1000,
+-999,
+-101,
+-100,
+-99,
+-10,
+-9,
+-8,
+-7,
+-6,
+-5,
+-4,
+-3,
+-2,
+-1,
+0,
+1,
+2,
+3,
+4,
+5,
+6,
+7,
+8,
+9,
+10,
+99,
+100,
+101,
+999,
+1000,
+1001,
+9999] {
+    @if $i < 0 {
+        .layer-0#{$i*-1} {
+            z-index: $i !important;
+        }
+    }
+    else {
+        .layer-#{$i} {
+            z-index: $i !important;
+        }
+    }
+}
+
+@for $i from 1 to 51 {
+    .border-radius-#{$i} {
+        border-radius: $i+px !important;
+    }
+    .border-top-left-radius-#{$i} {
+        border-top-left-radius: $i+ !important;
+    }
+    .border-top-right-radius-#{$i} {
+        border-top-right-radius: $i+px !important;
+    }
+    .border-bottom-left-radius-#{$i} {
+        border-bottom-left-radius: $i+px !important;
+    }
+    .border-bottom-right-radius-#{$i} {
+        border-bottom-right-radius: $i+px !important;
+    }
+    .border-width-#{$i} {
+        border-width: $i+px !important;
+    }
+    .border-left-width-#{$i} {
+        border-left-width: $i+px !important;
+    }
+    .border-right-#{$i} {
+        border-right-width: $i+px !important;
+    }
+    .border-top-#{$i} {
+        border-top-width: $i+px !important;
+    }
+    .border-bottom-#{$i} {
+        border-bottom-width: $i+px !important;
+    }
+}
+
+$colors: ( "red1": #ffcdd2, "red2": #f44336, "red3": #EE4036, "pink1": #f8bbd0, "pink2": #e91e63, "pink3": #880e4f, "purple1": #e1bee7, "purple2": #9c27b0, "purple3": #4a148c, "deepPurple1": #d1c4e9, "deepPurple2": #673ab7, "deepPurple3": #311b92, "indigo1": #c5cae9, "indigo2": #3f51b5, "indigo3": #1a237e, "blue1": #bbdefb, "blue2": #2196f3, "blue3": #0d47a1, "lightBlue1": #b3e5fc, "lightBlue2": #03a9f4, "lightBlue3": #01579b, "cyan1": #b2ebf2, "cyan2": #00bcd4, "cyan3": #006064, "teal1": #b2dfdb, "teal2": #009688, "teal3": #004d40, "green1": #c8e6c9, "green2": #4caf50, "green3": #1b5e20, "lightGreen1": #dcedc8, "lightGreen2": #8bc34a, "lightGreen3": #33691e, "lime1": #f0f4c3, "lime2": #cddc39, "lime3": #827717, "yellow1": #fff9c4, "yellow2": #ffeb3b, "yellow3": #f57f17, "amber1": #ffecb3, "amber2": #ffc107, "amber3": #000000, "orange1": #ffe0b2, "orange2": #ff9800, "orange3": #e65100, "deepOrange1": #ffccbc, "deepOrange2": #ff5722, "deepOrange3": #bf360c, "brown1": #d7ccc8, "brown2": #795548, "brown3": #3e2723, "grey1": #f5f5f5, "grey2": #9e9e9e, "grey3": #212121, "blueGrey1": #cfd8dc, "blueGrey2": #607d8b, "blueGrey3": #263238, );
+$color: ( red1: (), red2: (), red3: (), pink1: (), pink2: (), pink3: (), purple1: (), purple2: (), purple3: (), deepPurple1: (), deepPurple2: (), deepPurple3: (), indigo1: (), indigo2: (), indigo3: (), blue1: (), blue2: (), blue3: (), lightBlue1: (), lightBlue2: (), lightBlue3: (), cyan1: (), cyan2: (), cyan3: (), teal1: (), teal2: (), teal3: (), green1: (), green2: (), green3: (), lightGreen1: (), lightGreen2: (), lightGreen3: (), lime1: (), lime2: (), lime3: (), yellow1: (), yellow2: (), yellow3: (), amber1: (), amber2: (), amber3: (), orange1: (), orange2: (), orange3: (), deepOrange1: (), deepOrange2: (), deepOrange3: (), brown1: (), brown2: (), brown3: (), grey1: (), grey2: (), grey3: (), blueGrey1: (), blueGrey2: (), blueGrey3: ());
+@each $section,
+$map in $color {
+    .bg-#{"" + $section} {
+        background-color: map-get($colors, $section) !important;
+    }
+    .fg-#{"" + $section} {
+        color: map-get($colors, $section) !important;
+    }
+    .border-left-#{"" + $section} {
+        border-left-color: map-get($colors, $section) !important;
+    }
+    .border-right-#{"" + $section} {
+        border-right-color: map-get($colors, $section) !important;
+    }
+    .border-top-#{"" + $section} {
+        border-top-color: map-get($colors, $section) !important;
+    }
+    .border-bottom-#{"" + $section} {
+        border-bottom-color: map-get($colors, $section) !important;
+    }
+    .border-color-#{"" + $section} {
+        border-color: map-get($colors, $section) !important;
+    }
+}
+
+.bg-white {
+    background-color: #ffffff !important;
+}
+
+.bg-black {
+    background-color: #000000 !important;
+}
+
+.bg-transparent {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
+
+.fg-white {
+    color: #ffffff !important;
+}
+
+.fg-black {
+    color: #000000 !important;
+}
+
+.fg-transparent {
+    color: rgba(0, 0, 0, 0) !important;
+}
+
+.border-left-white {
+    border-left-color: #ffffff !important;
+}
+
+.border-right-white {
+    border-right-color: #ffffff !important;
+}
+
+.border-top-white {
+    border-top-color: #ffffff !important;
+}
+
+.border-bottom-white {
+    border-bottom-color: #ffffff !important;
+}
+
+.border-color-white {
+    border-color: #ffffff !important;
+}
+
+.border-left-black {
+    border-left-color: #000000 !important;
+}
+
+.border-right-black {
+    border-right-color: #000000 !important;
+}
+
+.border-top-black {
+    border-top-color: #000000 !important;
+}
+
+.border-bottom-black {
+    border-bottom-color: #000000 !important;
+}
+
+.border-color-black {
+    border-color: #000000 !important;
+}
+
+.border-left-transparent {
+    border-left-color: rgba(0, 0, 0, 0) !important;
+}
+
+.border-right-transparent {
+    border-right-color: rgba(0, 0, 0, 0) !important;
+}
+
+.border-top-transparent {
+    border-top-color: rgba(0, 0, 0, 0) !important;
+}
+
+.border-bottom-transparent {
+    border-bottom-color: rgba(0, 0, 0, 0) !important;
+}
+
+.border-color-transparent {
+    border-color: rgba(0, 0, 0, 0) !important;
+}
+
+@each $i in [none,
+solid,
+dashed,
+dotted,
+hidden] {
+    .border-style-#{$i} {
+        border-style: $i !important;
+    }
+    .border-left-style-#{$i} {
+        border-left-style: $i !important;
+    }
+    .border-right-style-#{$i} {
+        border-right-style: $i !important;
+    }
+    .border-top-style-#{$i} {
+        border-top-style: $i !important;
+    }
+    .border-bottom-style-#{$i} {
+        border-bottom-style: $i !important;
+    }
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.left {
+    text-align: left !important;
+}
+
+.right {
+    text-align: right !important;
+}
+
+.center {
+    text-align: center !important;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+
+.middle {
+    vertical-align: middle !important;
+}
+
+.uppercase {
+    text-transform: uppercase !important;
+}
+
+.lowercase {
+    text-transform: lowercase !important;
+}
+
+.capitalize {
+    text-transform: capitalize !important;
+}
+
+.drawer {
+    .Mui-selected {
+        border-left: 3px solid #4caf50 !important;
+    }
+}
+
+.hide {
+    display: none !important;
+}
+
+.show {
+    display: block !important;
+}
+
 .header{
     &.navbar {
         background-color: brown !important;
         border-bottom: 1px solid grey;
+        .navbar-brand {
+            color: #fff;
+        }
+        .navbar-nav {
+            a {
+                color: rgb(201, 199, 199);
+            }
+            .active {
+                color: #fff;
+            }
+        }
         .sidebartoggle {
             float: left;
         }
@@ -9,10 +366,16 @@
 }
 .content {
     position: relative;
-    display: flex;
+    left: 0;
+    display: block;
+    width: 100vw;
+    height: calc(100vh - 56px);
     .sidebar {
         display: inline-block;
         background-color: brown;
+        position: absolute;
+        left: 0px;
+        top: 0px;
         width: 280px;
         height: calc(100vh - 56px);
         overflow-y: auto;
@@ -20,6 +383,7 @@
             width: 100%;
             padding: 5px 15px;
             font-size: 1.2rem;
+            color: #fff;
             &:hover {
                 background-color: rgba(255,255,255,0.6);
                 cursor: pointer;
@@ -28,6 +392,11 @@
     }
     .main-content {
         display: inline-block;
+        position: absolute;
+        left: 280px;
+        top: 0px;
+        width: calc(100vw - 280px);
+        height: calc(100vh - 56px);
         overflow-y: auto;
     }
 }
@@ -38,5 +407,25 @@
                 width: calc(100% - 140px);
             }
         }
+    }
+    .content {
+        overflow-x: hidden;
+        .sidebar {
+            left: -280px;
+        }
+        .main-content {
+            left: 0px;
+            width: 100vw;
+        }
+        &.expand {
+            transition: 1s;
+            .sidebar {
+                left: 0px;
+            }
+            .main-content {
+                left: 280px;
+            }
+        }
+        
     }
 }

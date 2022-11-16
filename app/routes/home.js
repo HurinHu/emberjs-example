@@ -7,7 +7,7 @@ export default class HomeRoute extends Route {
 
   model() {
     return hash({
-        sidebarItems: this.store.peekAll('menuItem')
-    })
+      sidebarItems: this.store.peekAll('menuItem'),
+    });
   }
 }
