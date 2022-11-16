@@ -7,4 +7,16 @@ export default class MenuItemAdapter extends RESTAdapter {
   init() {
     super.init(...arguments);
   }
+  //only needed when serving with fastboot
+  async findAll(store, type, sinceToken, snapshotRecordArray) {
+    let { modelName } = type;
+    const path = this.pathForType(modelName);
+    
+    let res = await fetch(`${this.host}/${path}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    let data = await res.json();
+    return data;
+  }
 }

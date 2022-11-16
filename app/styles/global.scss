@@ -1,0 +1,42 @@
+.header{
+    &.navbar {
+        background-color: brown !important;
+        border-bottom: 1px solid grey;
+        .sidebartoggle {
+            float: left;
+        }
+    }
+}
+.content {
+    position: relative;
+    display: flex;
+    .sidebar {
+        display: inline-block;
+        background-color: brown;
+        width: 280px;
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+        .item {
+            width: 100%;
+            padding: 5px 15px;
+            font-size: 1.2rem;
+            &:hover {
+                background-color: rgba(255,255,255,0.6);
+                cursor: pointer;
+            }
+        }
+    }
+    .main-content {
+        display: inline-block;
+        overflow-y: auto;
+    }
+}
+@media screen and (max-width: 991px) {
+    .header{
+        &.navbar {
+            .navbar-brand {
+                width: calc(100% - 140px);
+            }
+        }
+    }
+}
