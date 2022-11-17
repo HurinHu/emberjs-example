@@ -6,14 +6,7 @@
             <BsAccordion as |acc|>
                 {{#each @model.sidebarItems as |item index|}}
                 <acc.item @value={{index}}  @title={{item.name}} {{on 'click' (fn this.selectItem item.id)}}>
-                    <p>{{item.description}}
-                        <br>
-                        {{#if (eq  this.selectedid item.id)}}
-                        
-                        {{/if}}
-                        <br>
-                        <br>
-                    </p>
+                    <p>{{item.description}}</p>
                 </acc.item>
                 {{/each}}
             </BsAccordion>
@@ -61,7 +54,4 @@
             </div>
         </div>
     </div>
-    
-    <br>
-    
 </div>
