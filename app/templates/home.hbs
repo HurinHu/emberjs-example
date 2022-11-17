@@ -1,28 +1,67 @@
 {{page-title "Home"}}
 <div class="container p-5">
     <h1>This is home page</h1>
-    <BsAccordion as |acc|>
-        {{#each @model.sidebarItems as |item index|}}
-        <acc.item @value={{index}}  @title={{item.name}}>
-            <p>{{item.description}}</p>
-        </acc.item>
-        {{/each}}
-    </BsAccordion>
-    <br>
-    <div class="card">
-        <div class="card-body">
-            <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewItem}} as |form|>
-                <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
-                    {{ this.msg }}
-                </BsAlert>
-                <form.element @controlType="text" @label="Name" @property="name" as |el|>
-                    <el.control placeholder="Name" required />
-                </form.element>
-                <form.element @controlType="textarea" @label="Description" @property="description" as |el|>
-                    <el.control placeholder="Description" required />
-                </form.element>
-                <form.submitButton>Submit</form.submitButton>
-            </BsForm>
+    <div class="row">
+        <div class="col-md-6">
+            <BsAccordion as |acc|>
+                {{#each @model.sidebarItems as |item index|}}
+                <acc.item @value={{index}}  @title={{item.name}} {{on 'click' (fn this.selectItem item.id)}}>
+                    <p>{{item.description}}
+                        <br>
+                        {{#if (eq  this.selectedid item.id)}}
+                        
+                        {{/if}}
+                        <br>
+                        <br>
+                    </p>
+                </acc.item>
+                {{/each}}
+            </BsAccordion>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    Update Item
+                </div>
+                <div class="card-body">
+                    <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{(fn this.updateItem this.selectedid)}} as |form|>
+                        <BsAlert @visible="{{if (eq  this.updatealert 'success') true}}{{if (eq  this.updatealert 'error') true}}" @type="{{if (eq  this.updatealert 'success') 'success'}}{{if (eq  this.updatealert 'error') 'danger'}}" >
+                            {{ this.updatemsg }}
+                        </BsAlert>
+                        <form.element @controlType="text" @property="selectedname" as |el|>
+                            <el.control placeholder="Name" required />
+                        </form.element>
+                        <form.element @controlType="textarea" @property="selecteddescription" as |el|>
+                            <el.control placeholder="Description" required />
+                        </form.element>
+                        <BsButton @type="danger" @size="sm" class="margin-left-5 float-right" {{on 'click' (fn this.deleteItem this.selectedid)}}>delete</BsButton>
+                        <form.submitButton @size="sm"  class="float-right">Update</form.submitButton>
+                    </BsForm>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header">
+                    Create New Item
+                </div>
+                <div class="card-body">
+                    <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewItem}} as |form|>
+                        <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
+                            {{ this.msg }}
+                        </BsAlert>
+                        <form.element @controlType="text" @label="Name" @property="name" as |el|>
+                            <el.control placeholder="Name" required />
+                        </form.element>
+                        <form.element @controlType="textarea" @label="Description" @property="description" as |el|>
+                            <el.control placeholder="Description" required />
+                        </form.element>
+                        <form.submitButton>Create</form.submitButton>
+                    </BsForm>
+                </div>
+            </div>
         </div>
     </div>
+    
+    <br>
+    
 </div>
