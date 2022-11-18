@@ -34,7 +34,7 @@ export default class AboutController extends Controller {
     }
 
     @action
-    addNewItem() {
+    addNewUser() {
         try{
             let item = this.store.createRecord('user',{firstname:this.firstname,lastname:this.lastname,email:this.email,avatar:this.avatar});
             item.save();
@@ -55,7 +55,7 @@ export default class AboutController extends Controller {
     }
 
     @action
-    selectItem(id) {
+    selectUser(id) {
         let item = this.store.peekRecord('user', id);
         this.selectedid = item.id;
         this.selectedfirstname = item.firstname;
@@ -65,7 +65,7 @@ export default class AboutController extends Controller {
     }
 
     @action
-    updateItem(id) {
+    updateUser(id) {
         try {
             let item = this.store.peekRecord('user', id);
             item.id = this.selectedid;
@@ -75,12 +75,13 @@ export default class AboutController extends Controller {
             item.avatar = this.selectedavatar;
             item.save();
         } catch (error) {
+            console.log(error);
             alert(error);
         }
     }
 
     @action
-    deleteItem(id) {
+    deleteUser(id) {
         try {
             let item = this.store.peekRecord('user', id);
             item.destroyRecord();
@@ -90,7 +91,7 @@ export default class AboutController extends Controller {
             this.selectedemail = '';
             this.selectedavatar = '';
         } catch (error) {
-            this.alert(error);
+            alert(error);
         }
     }
 
