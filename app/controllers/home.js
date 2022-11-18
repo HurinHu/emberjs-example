@@ -42,6 +42,7 @@ export default class HomeController extends Controller {
     @action
     selectItem(id) {
         let item = this.store.peekRecord('menuItem', id);
+        console.log(item);
         this.selectedid = item.id;
         this.selectedname = item.name;
         this.selecteddescription = item.description;
@@ -55,6 +56,7 @@ export default class HomeController extends Controller {
             item.description = this.selecteddescription;
             item.save();
         } catch (error) {
+            console.log(error);
             alert(error);
         }
     }

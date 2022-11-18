@@ -1,6 +1,5 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'test-site/tests/helpers';
-import { run } from '@ember/runloop';
 import { pauseTest } from '@ember/test-helpers';
 
 module('Unit | Controller | about', function (hooks) {
@@ -23,13 +22,20 @@ module('Unit | Controller | about', function (hooks) {
     store.findAll = async (model) => { 
       return new Promise((resolve) => resolve(data));
     }
-    const user = this.owner.lookup('service:store').createRecord('user',{"email":"Alice.Adren@gmail.com","firstname":"Alice","lastname":"Adren","avatar":"http://www.img.com/234.jpg","id":3});
+    const user = this.owner.lookup('service:store').modelFor('user');
+    user.id=3;
+    user.firstname = 'Alice';
+    user.lastname = 'Adren';
+    user.email = 'Alice.Adren@gmail.com';
+    user.avatar = 'http://www.img.com/234.jpg';
+    user.save = () => {
+      data.push({"email":"Alice.Adren@gmail.com","firstname":"Alice","lastname":"Adren","avatar":"http://www.img.com/234.jpg","id":3});
+    }
     store.createRecord = (model, u) => { 
-      data.push({"email":"Alice.Adren@gmail.com","firstname":"Alice","lastname":"Adren","avatar":"http://www.img.com/234.jpg","id":3})
       return user;
     }
     let controller = this.owner.lookup('controller:about');
-    setTimeout(() => {this.resumeTest()}, 1000); 
+    setTimeout(() => {this.resumeTest()}, 500); 
     await pauseTest();
     assert.equal(controller.users.length,2,"users list before added");
 
@@ -45,13 +51,48 @@ module('Unit | Controller | about', function (hooks) {
     assert.equal(controller.users.length,3,"users list after added");
   });
 
+  test('select user', async function (assert) {
+    const store = this.owner.lookup('service:store');
+    const user = this.owner.lookup('service:store').modelFor('user');
+    user.id=2;
+    user.firstname = 'Tom1';
+    user.lastname = 'John1';
+    user.email = 'Tom1.John1@gmail.com';
+    user.avatar = '';
+    store.peekRecord = (model, id) => { 
+      return user;
+    }
+    let controller = this.owner.lookup('controller:about');
+    setTimeout(() => {this.resumeTest()}, 500); 
+    await pauseTest();
+    assert.equal(controller.selectedid,0,"id before select is 0");
+    assert.equal(controller.selectedfirstname,'',"firstname before select is empty");
+    assert.equal(controller.selectedlastname,'',"lastname before select is empty");
+    assert.equal(controller.selectedemail,'',"email before select is empty");
+    assert.equal(controller.avatar,'',"avatar before select is empty");
+
+    controller.send('selectUser', 2);
+    setTimeout(() => {this.resumeTest()}, 1000); 
+    await pauseTest();
+    assert.equal(controller.selectedid,2,"id after select is 2");
+    assert.equal(controller.selectedfirstname,'Tom1',"firstname after select is Tom1");
+    assert.equal(controller.selectedlastname,'John1',"lastname after select is John1");
+    assert.equal(controller.selectedemail,'Tom1.John1@gmail.com',"email after select is Tom1.John1@gmail.com");
+    assert.equal(controller.avatar,'',"avatar after select is empty");
+  });
+
   test('update user', async function (assert) {
     const store = this.owner.lookup('service:store');
     let data = [{"email":"Tom.John@gmail.com","firstname":"Tom","lastname":"John","avatar":"","id":1},{"email":"Tom1.John1@gmail.com","firstname":"Tom1","lastname":"John1","avatar":"","id":2}];
     store.findAll = async (model) => { 
       return new Promise((resolve) => resolve(data));
     }
-    const user = this.owner.lookup('service:store').createRecord('user',{"email":"Tom1.John1@gmail.com","firstname":"Tom1","lastname":"John1","avatar":"","id":2});
+    const user = this.owner.lookup('service:store').modelFor('user');
+    user.id=2;
+    user.firstname = 'Alice';
+    user.lastname = 'Adren';
+    user.email = 'Alice.Adren@gmail.com';
+    user.avatar = 'http://www.img.com/234.jpg';
     user.save = () => {
       data[1] = {"email":"Alice.Adren@gmail.com","firstname":"Alice","lastname":"Adren","avatar":"http://www.img.com/234.jpg","id":2};
     }
@@ -59,7 +100,7 @@ module('Unit | Controller | about', function (hooks) {
       return user;
     }
     let controller = this.owner.lookup('controller:about');
-    setTimeout(() => {this.resumeTest()}, 1000); 
+    setTimeout(() => {this.resumeTest()}, 500); 
     await pauseTest();
     assert.equal(controller.users.length,2,"users list before updated");
 
@@ -74,5 +115,34 @@ module('Unit | Controller | about', function (hooks) {
     await pauseTest();
     assert.equal(controller.users.length,2,"users list after updated");
     assert.equal(controller.users[1].firstname,'Alice',"firstname after updated");
+  });
+
+  test('delete user', async function (assert) {
+    const store = this.owner.lookup('service:store');
+    let data = [{"email":"Tom.John@gmail.com","firstname":"Tom","lastname":"John","avatar":"","id":1},{"email":"Tom1.John1@gmail.com","firstname":"Tom1","lastname":"John1","avatar":"","id":2}];
+    store.findAll = async (model) => { 
+      return new Promise((resolve) => resolve(data));
+    }
+    const user = this.owner.lookup('service:store').modelFor('user');
+    user.id=2;
+    user.firstname = 'Tom1';
+    user.lastname = 'John1';
+    user.email = 'Tom1.John1@gmail.com';
+    user.avatar = '';
+    user.destroyRecord = () => {
+      data.splice(1, 1)
+    }
+    store.peekRecord = (model, id) => { 
+      return user;
+    }
+    let controller = this.owner.lookup('controller:about');
+    setTimeout(() => {this.resumeTest()}, 500); 
+    await pauseTest();
+    assert.equal(controller.users.length,2,"users list before deleted");
+
+    controller.send('deleteUser', 2);
+    setTimeout(() => {this.resumeTest()}, 1000); 
+    await pauseTest();
+    assert.equal(controller.users.length,1,"users list after deleted");
   });
 });
