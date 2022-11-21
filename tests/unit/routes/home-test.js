@@ -10,7 +10,7 @@ module('Unit | Route | home', function (hooks) {
     assert.ok(route);
   });
 
-  test('get data for model()', function (assert) {
+  test('get data for model()', async function (assert) {
     const store = this.owner.lookup('service:store');
     let data = [{"name":"test1","description":"test1 description","id":1},{"name":"test2","description":"test2 description","id":2},{"name":"test3","description":"test3 description","id":3}];
     store.peekAll = async (model) => { 
@@ -22,6 +22,9 @@ module('Unit | Route | home', function (hooks) {
       });
     }
     let route = this.owner.lookup('route:home');
-    assert.equal(route.model().then,model().then,"get data for model()");
+    // compare model().then not model() itself, it compare the data from model
+    let expected = await model();
+    let actual = await route.model();
+    assert.equal(actual.sidebarItems,expected.sidebarItems,"get data for model()");
   });
 });

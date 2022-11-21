@@ -3,6 +3,7 @@
     <h1>This is about page</h1>
     <div class="row">
         <div class="col-md-6">
+            <!-- this one is using ember-bootstrap Accordion -->
             <BsAccordion as |acc|>
                 {{#each this.users as |user index|}}
                 <acc.item @value={{index}}  @title={{user.fullName}} {{on 'click' (fn this.selectUser user.id)}}>
@@ -17,6 +18,7 @@
                     Update Item
                 </div>
                 <div class="card-body">
+                    <!-- this one is using ember-bootstrap Form, Alert and Button -->
                     <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{(fn this.updateUser this.selectedid)}} as |form|>
                         <BsAlert @visible="{{if (eq  this.updatealert 'success') true}}{{if (eq  this.updatealert 'error') true}}" @type="{{if (eq  this.updatealert 'success') 'success'}}{{if (eq  this.updatealert 'error') 'danger'}}" >
                             {{ this.updatemsg }}

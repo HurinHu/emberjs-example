@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class AboutController extends Controller {
+    // declare services and variables
     @service store;
     @service tool;
     @tracked users = [];
@@ -23,6 +24,7 @@ export default class AboutController extends Controller {
 
     constructor() {
         super(...arguments);
+        // get user list from api and set to variable users. If you need to use variables in this class, you have to use arrow function instead of traditional function 
         this.store
             .findAll('user')
             .then((data) => {
@@ -33,6 +35,7 @@ export default class AboutController extends Controller {
             });
     }
 
+    // delcare button action with @action, createRecord is return a model not promise, and it need to call .save() to create the network request.
     @action
     addNewUser() {
         try{
@@ -54,6 +57,7 @@ export default class AboutController extends Controller {
         });
     }
 
+    // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache.
     @action
     selectUser(id) {
         let item = this.store.peekRecord('user', id);
@@ -64,6 +68,7 @@ export default class AboutController extends Controller {
         this.selectedavatar = item.avatar;
     }
 
+    // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache, .save() will make a post request to update item.
     @action
     updateUser(id) {
         try {
@@ -80,6 +85,7 @@ export default class AboutController extends Controller {
         }
     }
 
+    // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache, .destroyRecord() will make a delete request to delete item.
     @action
     deleteUser(id) {
         try {

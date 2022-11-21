@@ -1,5 +1,6 @@
 {{head-layout}}
 {{page-title "TestSite"}}
+<!-- header navbar -->
 <BsNavbar
   @type="light"
   class="header"
@@ -20,9 +21,9 @@
   </navbar.content>
 </BsNavbar>
 <div class="content {{if this.isExpand 'expand'}}">
+    <!-- sidebar and main content -->
     <Sidebar />
     <div class="main-content">
-        {{@model.sidebars}}
         {{outlet}}
     </div>
 </div>

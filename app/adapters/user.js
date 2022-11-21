@@ -2,12 +2,15 @@ import RESTAdapter from '@ember-data/adapter/rest';
 import fetch from 'fetch';
 
 export default class UserAdapter extends RESTAdapter {
+  // define api base url
   host = 'https://6362f8d637f2167d6f702efa.mockapi.io/api';
   contentType = 'application/json';
   dataType = 'json';
   init() {
     super.init(...arguments);
   }
+
+  // rewrite url for default methods
   // urlForFindAll(modelName) {
   //   const path = this.pathForType(modelName);
   //   return `/data/${path}/all.json`;
@@ -20,6 +23,7 @@ export default class UserAdapter extends RESTAdapter {
   //   const path = this.pathForType(modelName);
   //   return `${this.host}/${path}`;
   // }
+
   async createRecord(store, type, snapshot) {
     let { modelName, _attributes } = snapshot;
     const path = this.pathForType(modelName);
@@ -39,6 +43,7 @@ export default class UserAdapter extends RESTAdapter {
     let data = await res.json();
     return data;
   }
+  
   // async findAll(store, type, query) {
   //     let response = await fetch(this.host+'users?page='+query.page);
   //     let data = await response.json();

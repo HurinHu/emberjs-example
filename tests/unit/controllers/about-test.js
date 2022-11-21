@@ -17,6 +17,7 @@ module('Unit | Controller | about', function (hooks) {
   });
 
   test('add new user', async function (assert) {
+    // mock data for findAll and createRecord, createRecord will return a model which is created by .modelFor, if not mock new user, it will create a real api request during the test
     const store = this.owner.lookup('service:store');
     let data = [{"email":"Tom.John@gmail.com","firstname":"Tom","lastname":"John","avatar":"","id":1},{"email":"Tom1.John1@gmail.com","firstname":"Tom1","lastname":"John1","avatar":"","id":2}];
     store.findAll = async (model) => { 
@@ -28,6 +29,7 @@ module('Unit | Controller | about', function (hooks) {
     user.lastname = 'Adren';
     user.email = 'Alice.Adren@gmail.com';
     user.avatar = 'http://www.img.com/234.jpg';
+    // need .save() function to create item
     user.save = () => {
       data.push({"email":"Alice.Adren@gmail.com","firstname":"Alice","lastname":"Adren","avatar":"http://www.img.com/234.jpg","id":3});
     }
@@ -35,15 +37,18 @@ module('Unit | Controller | about', function (hooks) {
       return user;
     }
     let controller = this.owner.lookup('controller:about');
+    // set some delay time to make sure everything is rendered and api request completed
     setTimeout(() => {this.resumeTest()}, 500); 
     await pauseTest();
     assert.equal(controller.users.length,2,"users list before added");
 
+    // set value
     controller.firstname = 'Alice';
     controller.lastname = 'Adren';
     controller.email = 'Alice.Adren@gmail.com';
     controller.avatar = 'http://www.img.com/234.jpg';
 
+    // call the addNewUser function
     controller.send('addNewUser');
     setTimeout(() => {this.resumeTest()}, 1000); 
     await pauseTest();
@@ -93,6 +98,7 @@ module('Unit | Controller | about', function (hooks) {
     user.lastname = 'Adren';
     user.email = 'Alice.Adren@gmail.com';
     user.avatar = 'http://www.img.com/234.jpg';
+    // need .save() function to update item
     user.save = () => {
       data[1] = {"email":"Alice.Adren@gmail.com","firstname":"Alice","lastname":"Adren","avatar":"http://www.img.com/234.jpg","id":2};
     }
@@ -129,6 +135,7 @@ module('Unit | Controller | about', function (hooks) {
     user.lastname = 'John1';
     user.email = 'Tom1.John1@gmail.com';
     user.avatar = '';
+    // need .destoryRecord() to delete item
     user.destroyRecord = () => {
       data.splice(1, 1)
     }

@@ -15,6 +15,7 @@ module('Integration | Component | sidebar', function (hooks) {
       this.owner.lookup('service:store').createRecord('menuItem',{name:'test2',description:'test2 description'});
       this.owner.lookup('service:store').createRecord('menuItem',{name:'test3',description:'test3 description'});
     });
+    // mock data retuen before render
     const store = this.owner.lookup('service:store');
     store.findAll = async (model) => { 
       let data = [{"name":"test1","description":"test1 description","id":"1"},{"name":"test2","description":"test2 description","id":"2"},{"name":"test3","description":"test3 description","id":"3"}];

@@ -12,6 +12,7 @@ module('Unit | Controller | home', function (hooks) {
   });
 
   test('add new item', async function (assert) {
+    // mock data for findAll and createRecord, createRecord will return a model which is created by .modelFor, if not mock new user, it will create a real api request during the test
     const store = this.owner.lookup('service:store');
     let data = [{"name":"test1","description":"test1 description","id":1},{"name":"test2","description":"test2 description","id":2},{"name":"test3","description":"test3 description","id":3}];
     store.findAll = async (model) => { 
@@ -23,6 +24,7 @@ module('Unit | Controller | home', function (hooks) {
     obj.name = 'test4';
     obj.description = 'test4 description';
     item = obj;
+    // need .save() function to create item
     item.save = () => {
       data.push({"name":"test4","description":"test4 description","id":4});
     }
@@ -82,6 +84,7 @@ module('Unit | Controller | home', function (hooks) {
     obj.name = 'test4';
     obj.description = 'test4 description';
     item = obj;
+    // need .save() function to update item
     item.save = () => {
       data[2] = {"name":"test4","description":"test4 description","id":3};
     }
@@ -117,6 +120,7 @@ module('Unit | Controller | home', function (hooks) {
     obj.name = 'test3';
     obj.description = 'test3 description';
     item = obj;
+    // need .save() function to delete item
     item.destroyRecord = () => {
       data.splice(2, 1)
     }
@@ -128,6 +132,7 @@ module('Unit | Controller | home', function (hooks) {
     await pauseTest();
     assert.equal(data.length,3,"item list before deleted");
 
+    // call @action deleteItem with input parameter 3
     controller.send('deleteItem', 3);
     setTimeout(() => {this.resumeTest()}, 1000); 
     await pauseTest();

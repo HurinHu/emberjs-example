@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class HomeController extends Controller {
+    // declare services and variables
     @service store;
     @service tool;
     @tracked name = '';
@@ -20,6 +21,7 @@ export default class HomeController extends Controller {
         super(...arguments);
     }
 
+    // delcare button action with @action, createRecord is return a model not promise, and it need to call .save() to create the network request.
     @action
     addNewItem() {
         try{
@@ -39,15 +41,16 @@ export default class HomeController extends Controller {
         });
     }
 
+    // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache.
     @action
     selectItem(id) {
         let item = this.store.peekRecord('menuItem', id);
-        console.log(item);
         this.selectedid = item.id;
         this.selectedname = item.name;
         this.selecteddescription = item.description;
     }
 
+    // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache, .save() will make a post request to update item.
     @action
     updateItem(id) {
         try {
@@ -61,6 +64,7 @@ export default class HomeController extends Controller {
         }
     }
 
+    // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache, .destroyRecord() will make a delete request to delete item.
     @action
     deleteItem(id) {
         try {

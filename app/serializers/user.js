@@ -1,6 +1,7 @@
 import JSONAPISerializer from '@ember-data/serializer/json-api';
 
 export default class UserSerializer extends JSONAPISerializer {
+    // restructure the response data, if data type is array object, convert it to string
     normalizeResponse(store, primaryModelClass, payload, id, requestType) {
         if(payload.data.length !== undefined){
             const data = payload.data.map((data) => {
@@ -26,6 +27,7 @@ export default class UserSerializer extends JSONAPISerializer {
         return super.normalizeResponse(...arguments);
     }
 
+    // restructure the post data
     serialize(snapshot, options) {
         let json = {
           attributes: {

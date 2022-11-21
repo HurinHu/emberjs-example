@@ -1,6 +1,7 @@
 import JSONAPISerializer from '@ember-data/serializer/json-api';
 
 export default class MenuItemSerializer extends JSONAPISerializer {
+  // restructure the post data
   serialize(snapshot, options) {
     let json = {
       attributes: {

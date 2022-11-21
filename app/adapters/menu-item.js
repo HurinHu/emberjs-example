@@ -1,13 +1,14 @@
 import RESTAdapter from '@ember-data/adapter/rest';
 
 export default class MenuItemAdapter extends RESTAdapter {
+  // define api base url
   host = 'https://6362f8d637f2167d6f702efa.mockapi.io/api';
   contentType = 'application/json';
   dataType = 'json';
   init() {
     super.init(...arguments);
   }
-  //only needed when serving with fastboot
+  // only needed when serving with fastboot, override the default methods
   async findAll(store, type, sinceToken, snapshotRecordArray) {
     let { modelName } = type;
     const path = this.pathForType(modelName);
