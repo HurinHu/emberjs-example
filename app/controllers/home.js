@@ -58,10 +58,17 @@ export default class HomeController extends Controller {
             item.name = this.selectedname;
             item.description = this.selecteddescription;
             item.save();
+            this.updatealert = 'success';
+            this.updatemsg = 'New item updated';
         } catch (error) {
             console.log(error);
-            alert(error);
+            this.updatealert = 'error';
+            this.updatemsg = error;
         }
+        this.tool.delay(3000).then(()=>{
+            this.updatealert = '';
+            this.updatemsg = '';
+        });
     }
 
     // delcare button action with @action, peekRecord is return a model without network request, data is get from local cache, .destroyRecord() will make a delete request to delete item.

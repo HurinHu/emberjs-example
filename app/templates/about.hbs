@@ -1,71 +1,98 @@
 {{page-title "About"}}
 <div class="container p-5">
-    <h1>This is about page</h1>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
+            <h1>This is about page</h1>
+        </div>
+        <div class="col-md-4">
+            <BsButton @type="primary" @size="sm" class="margin-top-5 float-right" {{on 'click' (fn this.openCreateModal true)}}>Create</BsButton>
+        </div>
+        <div class="col-md-12">
             <!-- this one is using ember-bootstrap Accordion -->
             <BsAccordion as |acc|>
                 {{#each this.users as |user index|}}
-                <acc.item @value={{index}}  @title={{user.fullName}} {{on 'click' (fn this.selectUser user.id)}}>
-                    <p>{{user.firstname}}<br>{{user.lastname}}<br>{{user.email}}<br>{{user.avatar}}</p>
+                <acc.item @value={{index}}  @title={{user.fullName}}>
+                    <p>
+                        {{user.firstname}}
+                        <br>
+                        {{user.lastname}}
+                        <br>
+                        {{user.email}}
+                        <br>
+                        {{user.avatar}}
+                        <BsButton @type="primary" @size="sm" class="margin-left-5 float-right" {{on 'click' (fn this.openUpdateModal user.id)}}>Update</BsButton>
+                        <BsButton @type="danger" @size="sm" class="margin-left-5 float-right" {{on 'click' (fn this.deleteUser user.id)}}>Delete</BsButton>
+                    </p>
                 </acc.item>
                 {{/each}}
             </BsAccordion>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    Update Item
-                </div>
-                <div class="card-body">
-                    <!-- this one is using ember-bootstrap Form, Alert and Button -->
-                    <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{(fn this.updateUser this.selectedid)}} as |form|>
-                        <BsAlert @visible="{{if (eq  this.updatealert 'success') true}}{{if (eq  this.updatealert 'error') true}}" @type="{{if (eq  this.updatealert 'success') 'success'}}{{if (eq  this.updatealert 'error') 'danger'}}" >
-                            {{ this.updatemsg }}
-                        </BsAlert>
-                        <form.element @controlType="text" @property="selectedfirstname" as |el|>
-                            <el.control placeholder="First Name" required />
-                        </form.element>
-                        <form.element @controlType="text" @property="selectedlastname" as |el|>
-                            <el.control placeholder="Last Name" required />
-                        </form.element>
-                        <form.element @controlType="email" @property="selectedemail" as |el|>
-                            <el.control placeholder="Email" required />
-                        </form.element>
-                        <form.element @controlType="text" @property="selectedavatar" as |el|>
-                            <el.control placeholder="Avatar" />
-                        </form.element>
-                        <BsButton @type="danger" @size="sm" class="margin-left-5 float-right" {{on 'click' (fn this.deleteUser this.selectedid)}}>delete</BsButton>
-                        <form.submitButton @size="sm"  class="float-right">Update</form.submitButton>
-                    </BsForm>
-                </div>
-            </div>
-            <br>
-            <div class="card">
-                <div class="card-header">
-                    Create New Item
-                </div>
-                <div class="card-body">
-                    <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewUser}} as |form|>
-                        <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
-                            {{ this.msg }}
-                        </BsAlert>
-                        <form.element @controlType="text" @property="firstname" as |el|>
-                            <el.control placeholder="First Name" required />
-                        </form.element>
-                        <form.element @controlType="text" @property="lastname" as |el|>
-                            <el.control placeholder="Last Name" required />
-                        </form.element>
-                        <form.element @controlType="email" @property="email" as |el|>
-                            <el.control placeholder="Email" required />
-                        </form.element>
-                        <form.element @controlType="text" @property="avatar" as |el|>
-                            <el.control placeholder="Avatar" />
-                        </form.element>
-                        <form.submitButton>Create</form.submitButton>
-                    </BsForm>
-                </div>
-            </div>
-        </div>
     </div>
+    <BsModal
+        @open={{this.modalCreated}}
+        @onSubmit={{this.addNewUser}} as |modal|>
+        <modal.header>
+            <h4 class="modal-title">
+            Create New User
+            </h4>
+        </modal.header>
+        <modal.body>
+            <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewUser}} as |form|>
+                <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
+                    {{ this.msg }}
+                </BsAlert>
+                <form.element @controlType="text" @property="firstname" as |el|>
+                    <el.control placeholder="First Name" required />
+                </form.element>
+                <form.element @controlType="text" @property="lastname" as |el|>
+                    <el.control placeholder="Last Name" required />
+                </form.element>
+                <form.element @controlType="email" @property="email" as |el|>
+                    <el.control placeholder="Email" required />
+                </form.element>
+                <form.element @controlType="text" @property="avatar" as |el|>
+                    <el.control placeholder="Avatar" />
+                </form.element>
+            </BsForm>
+        </modal.body>
+        <modal.footer>
+            <BsButton @size="sm" @type="danger" @onClick={{modal.close}}>Cancel</BsButton>
+            <BsButton @size="sm" @type="primary" @onClick={{modal.submit}}>Create</BsButton>
+        </modal.footer>
+        
+    </BsModal>
+
+    <BsModal
+        @open={{this.modalUpdate}}
+        @onSubmit={{(fn this.updateUser this.selectedid)}}  as |modal|>
+        <modal.header>
+            <h4 class="modal-title">
+            Update User
+            </h4>
+        </modal.header>
+        <modal.body>
+            <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{(fn this.updateUser this.selectedid)}} as |form|>
+                <BsAlert @visible="{{if (eq  this.updatealert 'success') true}}{{if (eq  this.updatealert 'error') true}}" @type="{{if (eq  this.updatealert 'success') 'success'}}{{if (eq  this.updatealert 'error') 'danger'}}" >
+                    {{ this.updatemsg }}
+                </BsAlert>
+                <form.element @controlType="text" @property="selectedfirstname" as |el|>
+                    <el.control placeholder="First Name" required />
+                </form.element>
+                <form.element @controlType="text" @property="selectedlastname" as |el|>
+                    <el.control placeholder="Last Name" required />
+                </form.element>
+                <form.element @controlType="email" @property="selectedemail" as |el|>
+                    <el.control placeholder="Email" required />
+                </form.element>
+                <form.element @controlType="text" @property="selectedavatar" as |el|>
+                    <el.control placeholder="Avatar" />
+                </form.element>
+            </BsForm>
+        </modal.body>
+        <modal.footer>
+            <BsButton @size="sm" @type="danger" @onClick={{modal.close}}>Cancel</BsButton>
+            <BsButton @size="sm" @type="primary" @onClick={{modal.submit}}>Update</BsButton>
+        </modal.footer>
+        
+    </BsModal>
 </div>

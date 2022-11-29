@@ -346,7 +346,7 @@ hidden] {
 
 .header{
     &.navbar {
-        background-color: brown !important;
+        background-color: rgb(67, 151, 247) !important;
         border-bottom: 1px solid grey;
         .navbar-brand {
             color: #fff;
@@ -372,7 +372,7 @@ hidden] {
     height: calc(100vh - 56px);
     .sidebar {
         display: inline-block;
-        background-color: brown;
+        background-color: rgb(67, 151, 247);
         position: absolute;
         left: 0px;
         top: 0px;

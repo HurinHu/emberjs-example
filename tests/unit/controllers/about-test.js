@@ -76,7 +76,7 @@ module('Unit | Controller | about', function (hooks) {
     assert.equal(controller.selectedemail,'',"email before select is empty");
     assert.equal(controller.avatar,'',"avatar before select is empty");
 
-    controller.send('selectUser', 2);
+    controller.send('openUpdateModal', 2);
     setTimeout(() => {this.resumeTest()}, 1000); 
     await pauseTest();
     assert.equal(controller.selectedid,2,"id after select is 2");
