@@ -43,7 +43,7 @@ export default class UserAdapter extends RESTAdapter {
     let data = await res.json();
     return data;
   }
-  
+
   // async findAll(store, type, query) {
   //     let response = await fetch(this.host+'users?page='+query.page);
   //     let data = await response.json();

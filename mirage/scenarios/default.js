@@ -1,4 +1,4 @@
-import users from 'ember-quickstart/mirage/data/users';
+import users from 'test-site/mirage/data/users';
 
 export default function loadDefaultScenario(server) {
   server.db.loadData({

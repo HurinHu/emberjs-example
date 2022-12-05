@@ -12,9 +12,14 @@ module('Unit | Model | user', function (hooks) {
     assert.ok(model);
   });
 
-  test('should get user data', function(assert) {
+  test('should get user data', function (assert) {
     const user = run(() =>
-      this.owner.lookup('service:store').createRecord('user',{firstname:'Tom',lastname:'John',email:'Tom.John@gmail.com',avatar:'https://www.img.com/123.jpg'})
+      this.owner.lookup('service:store').createRecord('user', {
+        firstname: 'Tom',
+        lastname: 'John',
+        email: 'Tom.John@gmail.com',
+        avatar: 'https://www.img.com/123.jpg',
+      })
     );
     assert.equal(user.firstname, 'Tom', 'get first name');
     assert.equal(user.lastname, 'John', 'get last name');

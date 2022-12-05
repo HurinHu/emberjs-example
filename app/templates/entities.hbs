@@ -1,0 +1,11 @@
+{{page-title "Entities"}}
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>This is Entities page</h1>
+            {{#each @model.entitystatus as |item index|}}
+                <div>{{item.entityStatusCode}}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>

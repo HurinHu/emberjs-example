@@ -12,9 +12,12 @@ module('Unit | Model | menu item', function (hooks) {
     assert.ok(model);
   });
 
-  test('should get menu item data', function(assert) {
+  test('should get menu item data', function (assert) {
     const item = run(() =>
-      this.owner.lookup('service:store').createRecord('menuItem',{name:'test name',description:'test description'})
+      this.owner.lookup('service:store').createRecord('menuItem', {
+        name: 'test name',
+        description: 'test description',
+      })
     );
     assert.equal(item.name, 'test name', 'get name');
     assert.equal(item.description, 'test description', 'get description');

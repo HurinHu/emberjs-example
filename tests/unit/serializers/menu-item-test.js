@@ -24,13 +24,13 @@ module('Unit | Serializer | menu item', function (hooks) {
     };
     item.serialize = (snapshot, options) => {
       return json;
-    }
-    store.createRecord = (model, u) => { 
+    };
+    store.createRecord = (model, u) => {
       return item;
-    }
-    let record = store.createRecord('menuItem',{});
+    };
+    let record = store.createRecord('menuItem', {});
     let serializedRecord = record.serialize();
     assert.ok(serializedRecord);
-    assert.equal(serializedRecord,json,"serializes json");
+    assert.equal(serializedRecord, json, 'serializes json');
   });
 });

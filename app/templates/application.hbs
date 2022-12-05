@@ -1,6 +1,6 @@
 {{head-layout}}
 {{page-title "TestSite"}}
-<!-- header navbar -->
+{{!-- header navbar --}}
 <BsNavbar
   @type="light"
   class="header"
@@ -11,17 +11,20 @@
     <navbar.toggle/>
     <navbar.content>
         <navbar.nav as |nav|>
-        <nav.item>
-            <nav.link-to @route="home">Home</nav.link-to>
-        </nav.item>
-        <nav.item>
-            <nav.link-to @route="about">About</nav.link-to>
-        </nav.item>
+            <nav.item>
+                <nav.link-to @route="home">Home</nav.link-to>
+            </nav.item>
+            <nav.item>
+                <nav.link-to @route="about">About</nav.link-to>
+            </nav.item>
+            <nav.item>
+                <nav.link-to @route="entities">Entities</nav.link-to>
+            </nav.item>
         </navbar.nav>
   </navbar.content>
 </BsNavbar>
 <div class="content {{if this.isExpand 'expand'}}">
-    <!-- sidebar and main content -->
+    {{!-- sidebar and main content --}}
     <Sidebar />
     <div class="main-content">
         {{outlet}}

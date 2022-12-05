@@ -26,7 +26,7 @@ module.exports = function (defaults) {
     },
 
     prember: {
-      urls: ['', 'home', 'about'],
+      urls: ['', 'home', 'about', 'entities'],
     },
 
     'ember-bootstrap': {

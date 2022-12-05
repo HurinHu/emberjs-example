@@ -9,7 +9,7 @@ export default class SidebarComponent extends Component {
 
   constructor() {
     super(...arguments);
-    // get menuItem list from api and set to variable items. If you need to use variables in this class, you have to use arrow function instead of traditional function 
+    // get menuItem list from api and set to variable items. If you need to use variables in this class, you have to use arrow function instead of traditional function
     this.store
       .findAll('menuItem')
       .then((data) => {

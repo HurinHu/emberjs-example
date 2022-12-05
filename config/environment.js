@@ -37,6 +37,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   }
 
   if (environment === 'test') {

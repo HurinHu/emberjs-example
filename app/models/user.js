@@ -7,7 +7,7 @@ export default class UserModel extends Model {
   @attr('string') email;
   @attr('string') avatar;
 
-  // declare aggregate data, user.fullName will return this result 
+  // declare aggregate data, user.fullName will return this result
   get fullName() {
     return `${this.firstname} ${this.lastname}`;
   }
