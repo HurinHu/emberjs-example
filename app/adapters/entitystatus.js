@@ -10,9 +10,9 @@ export default class EntitystatusAdapter extends RESTAdapter {
     super.init(...arguments);
   }
 
-	async findAll(store, type, query) {
-		let response = await fetch(this.host+'EntityStatus');
-		let data = await response.json();
-		return data;
-}
+  async findAll(store, type, query) {
+    let response = await fetch(this.host + 'EntityStatus');
+    let data = await response.json();
+    return data;
+  }
 }

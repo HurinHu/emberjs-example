@@ -3,9 +3,158 @@
     <div class="row">
         <div class="col-md-8">
             <h1>This is Entities page</h1>
-            {{#each @model.entitystatus as |item index|}}
-                <div>{{item.entityStatusCode}}</div>
-            {{/each}}
+        </div>
+        <div class="col-md-4">
+            <BsButton @type="primary" @size="sm" class="margin-top-5 float-right" {{on 'click' (fn this.openCreateModal true)}}>Create</BsButton>
+        </div>
+        <div class="col-md-12">
+            {{!-- this one is using ember-bootstrap Accordion --}}
+            <BsAccordion as |acc|>
+                {{#each @model.entities as |entity index|}}
+                <acc.item @value={{index}}  @title={{entity.entityName}}>
+                    <p>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                entityID
+                            </div>
+                            <div class="col-sm-8">
+                                {{if (not-eq entity.entityID null) entity.entityID 'null'}}
+                            </div>
+                            <div class="col-sm-4">
+                                entityName
+                            </div>
+                            <div class="col-sm-8">
+                                {{if (not-eq entity.entityName null) entity.entityName 'null'}}
+                            </div>
+                            <div class="col-sm-4">
+                                nzbnNumber
+                            </div>
+                            <div class="col-sm-8">
+                                {{if (not-eq entity.nzbnNumber null) entity.nzbnNumber 'null'}}
+                            </div>
+                            <div class="col-sm-4">
+                                websiteUrl
+                            </div>
+                            <div class="col-sm-8">
+                                {{if (not-eq entity.websiteUrl null) entity.websiteUrl 'null'}}
+                            </div>
+                            <div class="col-sm-4">
+                                entityStatus
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row font-8">
+                                    <div class="col-sm-4">
+                                        entityStatusID
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.entityStatus null) (not-eq entity.entityStatus.entityStatusID null)) entity.entityStatus.entityStatusID 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        entityStatusCode
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.entityStatus null) (not-eq entity.entityStatus.entityStatusCode null)) entity.entityStatus.entityStatusCode 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        entityStatusDescription
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.entityStatus null) (not-eq entity.entityStatus.entityStatusDescription null)) entity.entityStatus.entityStatusDescription 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        isActive
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.entityStatus null) (not-eq entity.entityStatus.isActive null)) entity.entityStatus.isActive 'null'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                industry
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row font-8">
+                                    <div class="col-sm-4">
+                                        industryID
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.industry null) (not-eq entity.industry.industryID null)) entity.industry.industryID 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        industryCode
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.industry null) (not-eq entity.industry.industryCode null)) entity.industry.industryCode 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        industryDescription
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.industry null) (not-eq entity.industry.industryDescription null)) entity.industry.industryDescription 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        industryClassificationID
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.industry null) (not-eq entity.industry.industryClassificationID null)) entity.industry.industryClassificationID 'null'}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        industryHierarchy
+                                    </div>
+                                    <div class="col-sm-8">
+                                        {{if (and (not-eq entity.industry null) (not-eq entity.industry.industryHierarchy null)) entity.industry.industryHierarchy 'null'}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                creditRating
+                            </div>
+                            <div class="col-sm-8">
+                                {{entity.creditRating}}
+                            </div>
+                        </div>
+
+                    </p>
+                </acc.item>
+                {{/each}}
+            </BsAccordion>
         </div>
     </div>
+    <BsModal
+        @open={{this.modalCreated}}
+        @onSubmit={{this.addNewEntity}} as |modal|>
+        <modal.header>
+            <h4 class="modal-title">
+            Create New Entity
+            </h4>
+        </modal.header>
+        <modal.body>
+            <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewEntity}} as |form|>
+                <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
+                    {{{ this.msg }}}
+                </BsAlert>
+                <form.element @controlType="text" @property="entityName" as |el|>
+                    <el.control placeholder="entityName" required />
+                </form.element>
+                <form.element @controlType="text" @property="websiteUrl" as |el|>
+                    <el.control placeholder="websiteUrl" />
+                </form.element>
+                <form.element @controlType="text" @property="nzbnNumber" as |el|>
+                    <el.control placeholder="nzbnNumber" />
+                </form.element>
+                <form.element @controlType="text" @property="entityStatusID" as |el|>
+                    <select required class="form-select" aria-label="Default select example" onchange={{action this.onChangeSelect value="target.value"}} value={{ this.entityStatusID }}>
+                        {{#each @model.entitystatus as |entityStatus|}}        
+                            <option value={{entityStatus.entityStatusID}}>{{entityStatus.entityStatusDescription}}</option>      
+                        {{/each}} 
+                    </select>
+                </form.element>
+            </BsForm>
+        </modal.body>
+        <modal.footer>
+            <BsButton @size="sm" @type="danger" @onClick={{modal.close}}>Cancel</BsButton>
+            <BsButton @size="sm" @type="primary" @onClick={{modal.submit}}>Create</BsButton>
+        </modal.footer>
+        
+    </BsModal>
 </div>
