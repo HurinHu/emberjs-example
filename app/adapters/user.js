@@ -34,6 +34,13 @@ export default class UserAdapter extends RESTAdapter {
       body: JSON.stringify({ attributes: _attributes }),
     });
     let data = await res.json();
+    if (res.status !== 201) {
+			let error = data;
+			if ((typeof data.errors) === 'object') {
+				error = Object.values(data.errors).join('<br>');
+			}
+			throw error;
+		}
     return data;
   }
   async query(store, type, query) {
@@ -41,6 +48,13 @@ export default class UserAdapter extends RESTAdapter {
     let host = 'https://6362f8d637f2167d6f702efa.mockapi.io/api';
     let res = await fetch(`${host}/${path}`, query);
     let data = await res.json();
+    if (res.status !== 200) {
+			let error = data;
+			if ((typeof data.errors) === 'object') {
+				error = Object.values(data.errors).join('<br>');
+			}
+			throw error;
+		}
     return data;
   }
 

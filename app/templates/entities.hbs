@@ -47,6 +47,7 @@
                                         entityStatusID
                                     </div>
                                     <div class="col-sm-8">
+                                        1 {{ entity.entityStatus }} 2 {{ entity.entityStatus.entityStatusID }} 3 {{ entity.entityStatus?.entityStatusID }} 4
                                         {{if (and (not-eq entity.entityStatus null) (not-eq entity.entityStatus.entityStatusID null)) entity.entityStatus.entityStatusID 'null'}}
                                     </div>
                                     <div class="col-sm-4">
