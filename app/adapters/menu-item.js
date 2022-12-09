@@ -19,12 +19,12 @@ export default class MenuItemAdapter extends RESTAdapter {
     });
     let data = await res.json();
     if (res.status !== 200) {
-			let error = data;
-			if ((typeof data.errors) === 'object') {
-				error = Object.values(data.errors).join('<br>');
-			}
-			throw error;
-		}
+      let error = data;
+      if (typeof data.errors === 'object') {
+        error = Object.values(data.errors).join('<br>');
+      }
+      throw error;
+    }
     return data;
   }
 }

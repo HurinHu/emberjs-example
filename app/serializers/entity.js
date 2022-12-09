@@ -5,7 +5,7 @@ export default class EntitySerializer extends RESTSerializer {
   normalizeResponse(store, primaryModelClass, payload, id, requestType) {
     if (payload.length !== undefined) {
       const data = payload.map((data) => {
-				data.id = data.entityID;
+        data.id = data.entityID;
         return data;
       });
       payload = {

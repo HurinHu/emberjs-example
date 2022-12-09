@@ -35,12 +35,12 @@ export default class UserAdapter extends RESTAdapter {
     });
     let data = await res.json();
     if (res.status !== 201) {
-			let error = data;
-			if ((typeof data.errors) === 'object') {
-				error = Object.values(data.errors).join('<br>');
-			}
-			throw error;
-		}
+      let error = data;
+      if (typeof data.errors === 'object') {
+        error = Object.values(data.errors).join('<br>');
+      }
+      throw error;
+    }
     return data;
   }
   async query(store, type, query) {
@@ -49,12 +49,12 @@ export default class UserAdapter extends RESTAdapter {
     let res = await fetch(`${host}/${path}`, query);
     let data = await res.json();
     if (res.status !== 200) {
-			let error = data;
-			if ((typeof data.errors) === 'object') {
-				error = Object.values(data.errors).join('<br>');
-			}
-			throw error;
-		}
+      let error = data;
+      if (typeof data.errors === 'object') {
+        error = Object.values(data.errors).join('<br>');
+      }
+      throw error;
+    }
     return data;
   }
 

@@ -23,7 +23,12 @@ module.exports = function (environment) {
     fastboot: {
       hostWhitelist: [/^localhost:\d+$/],
     },
-
+    'ember-validated-form': {
+      theme: 'bootstrap',
+      features: {
+        scrollErrorIntoView: true,
+      },
+    },
     pageTitle: {
       separator: ' - ',
       prepend: true,

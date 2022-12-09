@@ -33,6 +33,26 @@ module.exports = function (defaults) {
       bootstrapVersion: 5,
       importBootstrapCSS: true,
     },
+
+    'ember-validated-form': {
+      defaults: {
+        error: 'app/components/x-error',
+        hint: 'app/components/x-hint',
+        label: 'app/components/x-label',
+        render: 'app/components/x-render',
+
+        // button
+        button: 'app/components/x-button',
+
+        // types
+        'types/checkbox': 'app/components/x-checkbox',
+        'types/input': 'app/components/x-input',
+        'types/radio-group': 'app/components/x-radio-group',
+        'types/select': 'app/components/x-select',
+        'types/textarea': 'app/components/x-textarea',
+        'types/date': 'app/components/x-date-picker',
+      },
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
