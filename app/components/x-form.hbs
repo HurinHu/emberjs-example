@@ -1,0 +1,32 @@
+<ValidatedForm
+  @model={{changeset @model this.EntityValidations}}
+  @on-submit={{perform this.submit}}
+  as |f|
+>
+    <BsAlert @visible="{{if (eq  this.lert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
+        {{{ this.msg }}}
+    </BsAlert>
+
+  <f.input @label="Entity Name" @name="entityName" @required={{true}} />
+
+  <f.input @label="Website URL" @name="websiteUrl" @required={{false}} />
+
+  <f.input @label="NZBN Number" @name="nzbnNumber" @required={{false}} />
+
+  <f.input
+    @type="select"
+    @label="EntityStatus"
+    @name="entityStatus"
+    @prompt="Select an EntityStatus"
+    @options={{@entityStatus}}
+    @optionLabelPath="entityStatusDescription"
+    @optionValuePath="entityStatusID"
+    @value=""
+    @required={{true}}
+  />
+
+  <f.submit
+    @label={{if this.submit.isRunning "Creating ..." "Create"}}
+    @loading={{this.submit.isRunning}}
+  />
+</ValidatedForm>

@@ -6,6 +6,7 @@ export default class EntityModel extends Model {
   @attr('string') websiteUrl;
   @attr('string') nzbnNumber;
   @attr industry;
+  @attr('number') entityStatusID;
   @attr entityStatus;
   @attr creditRating;
 }

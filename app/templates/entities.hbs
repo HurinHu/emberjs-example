@@ -47,7 +47,6 @@
                                         entityStatusID
                                     </div>
                                     <div class="col-sm-8">
-                                        1 {{ entity.entityStatus }} 2 {{ entity.entityStatus.entityStatusID }} 3 {{ entity.entityStatus?.entityStatusID }} 4
                                         {{if (and (not-eq entity.entityStatus null) (not-eq entity.entityStatus.entityStatusID null)) entity.entityStatus.entityStatusID 'null'}}
                                     </div>
                                     <div class="col-sm-4">
@@ -130,7 +129,8 @@
             </h4>
         </modal.header>
         <modal.body>
-            <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewEntity}} as |form|>
+            <X-Form @model={{this.entityModel}} @entityStatus={{@model.entitystatus}} />
+            {{!-- <BsForm @formLayout="vertical" @model={{this}} @onSubmit={{this.addNewEntity}} as |form|>
                 <BsAlert @visible="{{if (eq  this.alert 'success') true}}{{if (eq  this.alert 'error') true}}" @type="{{if (eq  this.alert 'success') 'success'}}{{if (eq  this.alert 'error') 'danger'}}" >
                     {{{ this.msg }}}
                 </BsAlert>
@@ -150,7 +150,7 @@
                         {{/each}} 
                     </select>
                 </form.element>
-            </BsForm>
+            </BsForm> --}}
         </modal.body>
         <modal.footer>
             <BsButton @size="sm" @type="danger" @onClick={{modal.close}}>Cancel</BsButton>

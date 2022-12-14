@@ -1,0 +1,12 @@
+import {
+  validatePresence,
+  validateLength,
+  validateInclusion,
+} from "ember-changeset-validations/validators";
+
+export default {
+  entityName: [validatePresence(true), validateLength({ min: 3, max: 40 })],
+  websiteUrl: [validateLength({ allowBlank: true, max: 200 })],
+  nzbnNumber: [validateLength({ allowBlank: true, max: 200 })],
+  entityStatus: [validatePresence(true)],
+};
